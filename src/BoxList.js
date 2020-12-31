@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
 import Box from './Box';
 import NewBoxForm from './NewBoxForm';
+import {v4 as uuid} from 'uuid';
 
 const BoxList = () => {
-    const [boxes, setBoxes] = useState();
+    const [boxes, setBoxes] = useState([{height: 100, color: 'blue', width: 100, key: uuid()}]);
     const createBox = (newBox) => {
-        setBoxes(boxes => {
-            return [...boxes,{...newBox}]
-        })
+        setBoxes(boxes => 
+            [...boxes,{...newBox, key: uuid()}])
     }
     return (
         <div>
-            {boxes.map(({height, width, color}) => {
-                <Box height={height} width={width} color={color}/>
-            })}
+            {boxes.map(({height, width, color, key}) => (
+                <Box height={height} width={width} color={color} key={key}/>
+            ))}
             <NewBoxForm createBox={createBox}/>
         </div>
     )

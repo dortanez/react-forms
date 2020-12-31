@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
 
 const NewBoxForm = ({createBox}) => {
-    const [formData, setFormData] = useState();
+    const Initial_state = {
+        color: '#000000',
+        height: 100,
+        width: 100
+    }
+    const [formData, setFormData] = useState(Initial_state);
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData(formData => (
             {...formData,[name]: value}
         ))
     }
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createBox({...formData});
+        console.log(formData)
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -17,7 +24,7 @@ const NewBoxForm = ({createBox}) => {
             <label htmlFor='color'>Color</label>
             <input 
                 name='color' 
-                value='color' 
+                value={formData.color}
                 type='color' 
                 id='color'
                 onChange={handleChange}
@@ -25,7 +32,7 @@ const NewBoxForm = ({createBox}) => {
             <label htmlFor='height'>Height</label>
             <input 
                 name='height' 
-                value='height' 
+                value={formData.height}
                 type='number' 
                 id='height'
                 onChange={handleChange}
@@ -33,12 +40,12 @@ const NewBoxForm = ({createBox}) => {
             <label htmlFor='width'>Width</label>
             <input 
                 name='width' 
-                value='width' 
+                value={formData.width}
                 type='number' 
                 id='width'
                 onChange={handleChange}
             />
-            <button onClick={handleSubmit}></button>
+            <button>Submit</button>
         </form>
     )
 }
