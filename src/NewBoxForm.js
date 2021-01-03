@@ -3,19 +3,26 @@ import React, {useState} from 'react';
 const NewBoxForm = ({createBox}) => {
     const Initial_state = {
         color: '#000000',
-        height: 100,
-        width: 100
+        height: 0,
+        width: 0
     }
     const [formData, setFormData] = useState(Initial_state);
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormData(formData => (
-            {...formData,[name]: value}
-        ))
+        setFormData(formData => {
+             if(name === 'height' || name === 'width') {
+                return {...formData,[name]: Number(value)}
+            } else {
+                return {...formData,[name]: value}
+            }
+                
+        })
+        console.log(formData)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         createBox({...formData});
+        setFormData(Initial_state);
         console.log(formData)
     }
     return (
