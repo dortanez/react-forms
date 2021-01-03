@@ -5,17 +5,20 @@ import {v4 as uuid} from 'uuid';
 import './BoxList.css';
 
 const BoxList = () => {
-    const [boxes, setBoxes] = useState([{height: 100, color: 'blue', width: 100, key: uuid()}]);
-    const createBox = (newBox) => {
+    const [boxes, setBoxes] = useState([{height: 100, color: 'blue', width: 100, id: uuid()}]);
+    const createBox = newBox => {
         setBoxes(boxes => 
             [...boxes,{...newBox, key: uuid()}])
+    }
+    const deleteBox = id => {
+        setBoxes(boxes => boxes.filter(box => box.id !== id))
     }
     return (
         <div>
             <NewBoxForm createBox={createBox}/>
             <div className='BoxList-boxes'>
-                {boxes.map(({height, width, color, key}) => (
-                    <Box height={height} width={width} color={color} key={key}/>
+                {boxes.map(({height, width, color, id}) => (
+                    <Box deleteBox={deleteBox} height={height} width={width} color={color} key={id} id={id}/>
                 ))}
             </div>
         </div>

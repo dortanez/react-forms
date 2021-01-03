@@ -10,20 +10,18 @@ const NewBoxForm = ({createBox}) => {
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData(formData => {
-             if(name === 'height' || name === 'width') {
-                return {...formData,[name]: Number(value)}
-            } else {
+             if(name === 'color') {
                 return {...formData,[name]: value}
+            } else {
+                return {...formData,[name]: Number(value)}
             }
                 
         })
-        console.log(formData)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         createBox({...formData});
         setFormData(Initial_state);
-        console.log(formData)
     }
     return (
         <form onSubmit={handleSubmit}>
